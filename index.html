@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VotoInformado 2026 — Elecciones Perú</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0c14;
+      --bg2: #12121e;
+      --bg3: #1a1a28;
+      --card: #1e1e2e;
+      --border: #2e2e46;
+      --text: #e2e2f0;
+      --muted: #7878a0;
+      --accent: #c8102e;
+      --accent2: #e84c4c;
+      --gold: #d4a017;
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --purple: #8b5cf6;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+      --radius: 16px;
+      --transition: all 0.2s ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(12,12,20,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.2rem; text-decoration: none; color: var(--text); }
+    .logo-flag { width: 28px; height: 20px; display: flex; border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+    .logo-flag span:first-child { flex: 1; background: var(--accent); }
+    .logo-flag span:nth-child(2) { flex: 1; background: #fff; }
+    .logo-flag span:last-child { flex: 1; background: var(--accent); }
+    .logo-text span { color: var(--accent); }
+    .nav-tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn { padding: 8px 14px; border: none; background: transparent; color: var(--muted); font-size: 0.85rem; font-weight: 500; cursor: pointer; border-radius: 8px; white-space: nowrap; transition: var(--transition); font-family: inherit; display: flex; align-items: center; gap: 6px; }
+    .tab-btn:hover { background: var(--bg3); color: var(--text); }
+    .tab-btn.active { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+
+    /* SECTIONS */
+    main { padding-top: 64px; }
+    .section { display: none; min-height: calc(100vh - 64px); }
+    .section.active { display: block; }
+
+    /* ===== INICIO ===== */
+    .hero { max-width: 900px; margin: 0 auto; padding: 80px 20px 40px; text-align: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(200,16,46,0.15); border: 1px solid rgba(200,16,46,0.3); color: #ff6b6b; padding: 6px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; margin-bottom: 24px; }
+    .hero-badge::before { content: "🗳️"; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+    h1 span { background: linear-gradient(135deg, var(--accent) 0%, #ff6b6b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: var(--transition); text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,16,46,0.3); }
+    .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--bg3); border-color: var(--accent); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { background: var(--card); }
+
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+    .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; cursor: pointer; transition: var(--transition); }
+    .feature-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .feature-icon { font-size: 2rem; margin-bottom: 12px; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    .quick-qs { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+    .quick-qs h2 { font-size: 1.1rem; font-weight: 600; color: var(--muted); margin-bottom: 16px; }
+    .quick-qs-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .quick-q { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px 16px; border-radius: 100px; font-size: 0.85rem; cursor: pointer; font-family: inherit; transition: var(--transition); }
+    .quick-q:hover { border-color: var(--accent); background: var(--bg3); }
+
+    /* ===== CHAT ===== */
+    .chat-layout { display: flex; height: calc(100vh - 64px); max-width: 1100px; margin: 0 auto; padding: 0 20px; gap: 20px; }
+    .chat-sidebar { width: 240px; padding: 20px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; overflow-y: auto; }
+    .sidebar-label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 0 4px; }
+    .party-filter { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 0.85rem; cursor: pointer; font-family: inherit; transition: var(--transition); display: flex; align-items: center; gap: 8px; }
+    .party-filter:hover { border-color: var(--accent); }
+    .party-filter.selected { background: rgba(200,16,46,0.15); border-color: var(--accent); }
+    .party-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .party-filter-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    .chat-main { flex: 1; display: flex; flex-direction: column; padding: 20px 0; overflow: hidden; }
+    .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; padding: 10px 0; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+    .msg { display: flex; gap: 12px; max-width: 85%; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+    .msg-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .msg.ai .msg-avatar { background: linear-gradient(135deg, var(--accent), #ff6b6b); }
+    .msg.user .msg-avatar { background: var(--blue); }
+    .msg-body { display: flex; flex-direction: column; gap: 6px; }
+    .msg-text { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 12px 16px; font-size: 0.92rem; line-height: 1.65; white-space: pre-wrap; }
+    .msg.user .msg-text { background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.3); }
+    .msg-citations { display: flex; flex-wrap: wrap; gap: 6px; }
+    .citation-tag { font-size: 0.75rem; background: rgba(200,16,46,0.12); border: 1px solid rgba(200,16,46,0.25); color: #ff9090; padding: 3px 8px; border-radius: 6px; cursor: pointer; text-decoration: none; }
+    .citation-tag:hover { background: rgba(200,16,46,0.2); }
+    .msg-type { font-size: 0.78rem; color: var(--muted); padding: 0 4px; }
+
+    .chat-mode-bar { display: flex; gap: 6px; padding: 12px 0 8px; flex-wrap: wrap; }
+    .mode-btn { padding: 6px 14px; border-radius: 100px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 0.8rem; cursor: pointer; font-family: inherit; transition: var(--transition); display: flex; align-items: center; gap: 6px; }
+    .mode-btn.active { background: var(--card); color: var(--text); border-color: var(--accent); }
+    .mode-btn:hover { background: var(--bg3); color: var(--text); }
+    .mode-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    .chat-input-wrap { padding: 12px 0; border-top: 1px solid var(--border); }
+    .chat-input-row { display: flex; gap: 10px; align-items: flex-end; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 10px 14px; transition: var(--transition); }
+    .chat-input-row:focus-within { border-color: var(--accent); }
+    #chatInput { flex: 1; background: none; border: none; color: var(--text); font-family: inherit; font-size: 0.95rem; resize: none; max-height: 160px; min-height: 28px; outline: none; line-height: 1.5; }
+    #chatInput::placeholder { color: var(--muted); }
+    .chat-send { width: 36px; height: 36px; border-radius: 9px; background: var(--accent); border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: var(--transition); flex-shrink: 0; }
+    .chat-send:hover { background: var(--accent2); }
+    .chat-send:disabled { background: var(--border); cursor: not-allowed; }
+    .typing { display: flex; gap: 4px; padding: 14px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; width: fit-content; }
+    .typing span { width: 6px; height: 6px; background: var(--muted); border-radius: 50%; animation: bounce 1.2s infinite; }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+
+    /* ===== QUIZ ===== */
+    .quiz-wrap { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
+    .quiz-header { text-align: center; margin-bottom: 40px; }
+    .quiz-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .quiz-header p { color: var(--muted); font-size: 1rem; }
+    .quiz-progress-bar { height: 4px; background: var(--border); border-radius: 100px; margin-bottom: 32px; overflow: hidden; }
+    .quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #ff6b6b); border-radius: 100px; transition: width 0.4s ease; }
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: fadeIn 0.3s ease; }
+    .quiz-q-num { font-size: 0.8rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .quiz-q { font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; line-height: 1.4; }
+    .quiz-labels { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.78rem; color: var(--muted); }
+    .quiz-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; background: var(--border); border-radius: 100px; outline: none; cursor: pointer; margin-bottom: 20px; }
+    .quiz-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); cursor: pointer; border: 3px solid var(--bg); box-shadow: 0 2px 8px rgba(200,16,46,0.4); transition: var(--transition); }
+    .quiz-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+    .slider-val { text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-bottom: 24px; min-height: 28px; }
+    .quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
+    .quiz-result { display: none; }
+    .quiz-result.show { display: block; animation: fadeIn 0.5s ease; }
+    .result-title { font-size: 1.6rem; font-weight: 800; text-align: center; margin-bottom: 8px; }
+    .result-sub { text-align: center; color: var(--muted); margin-bottom: 32px; }
+    .result-list { display: flex; flex-direction: column; gap: 12px; }
+    .result-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 16px; transition: var(--transition); }
+    .result-item.rank1 { border-color: var(--gold); background: rgba(212,160,23,0.08); }
+    .result-item.rank2 { border-color: var(--muted); }
+    .result-item.rank3 { border-color: #cd7f32; }
+    .result-rank { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; }
+    .rank1 .result-rank { background: var(--gold); color: #000; }
+    .rank2 .result-rank { background: var(--muted); color: #000; }
+    .rank3 .result-rank { background: #cd7f32; color: #fff; }
+    .result-item:not(.rank1):not(.rank2):not(.rank3) .result-rank { background: var(--border); color: var(--muted); font-size: 0.8rem; }
+    .result-info { flex: 1; min-width: 0; }
+    .result-name { font-weight: 700; font-size: 0.95rem; }
+    .result-candidate { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .result-bar-wrap { width: 100px; flex-shrink: 0; }
+    .result-pct { font-size: 0.85rem; font-weight: 700; text-align: right; margin-bottom: 4px; }
+    .result-bar { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .result-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--accent), #ff6b6b); }
+    .result-item.rank1 .result-bar-fill { background: linear-gradient(90deg, var(--gold), #ffd700); }
+
+    /* ===== CANDIDATOS ===== */
+    .candidates-wrap { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    .section-header { text-align: center; margin-bottom: 40px; }
+    .section-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+    .section-header p { color: var(--muted); font-size: 1rem; max-width: 600px; margin: 0 auto; }
+    .cand-filter-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 28px; }
+    .cand-filter-btn { padding: 7px 16px; border-radius: 100px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 0.82rem; cursor: pointer; font-family: inherit; transition: var(--transition); }
+    .cand-filter-btn.active, .cand-filter-btn:hover { background: var(--card); color: var(--text); border-color: var(--accent); }
+    .cand-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .cand-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: var(--transition); }
+    .cand-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .cand-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+    .cand-avatar { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; font-weight: 700; color: #fff; }
+    .cand-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 3px; }
+    .cand-party { font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+    .cand-ideology { display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 100px; padding: 3px 10px; color: var(--text); }
+    .cand-status { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .status-tag { padding: 3px 10px; border-radius: 100px; font-size: 0.73rem; font-weight: 600; }
+    .status-clean { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: #4ade80; }
+    .status-investigated { background: rgba(234,179,8,0.12); border: 1px solid rgba(234,179,8,0.25); color: #facc15; }
+    .status-fugitive { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.35); color: #f87171; }
+    .status-convicted { background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.4); color: #fca5a5; font-weight: 700; }
+    .cand-divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+    .cand-proposal { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .cand-proposal strong { color: var(--text); }
+    .cand-actions { display: flex; gap: 8px; margin-top: 14px; }
+    .cand-btn { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg3); color: var(--text); font-size: 0.8rem; cursor: pointer; font-family: inherit; transition: var(--transition); text-align: center; }
+    .cand-btn:hover { border-color: var(--accent); background: rgba(200,16,46,0.1); }
+
+    /* Modal */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px; max-width: 640px; width: 100%; max-height: 80vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+    .modal-header h3 { font-size: 1.3rem; font-weight: 800; }
+    .modal-close { background: var(--bg3); border: none; color: var(--muted); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+    .modal-close:hover { color: var(--text); background: var(--border); }
+    .modal-section { margin-bottom: 20px; }
+    .modal-section h4 { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    .modal-section p { font-size: 0.9rem; line-height: 1.7; color: var(--text); }
+    .modal-section ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .modal-section ul li { font-size: 0.88rem; color: var(--text); padding-left: 16px; position: relative; line-height: 1.6; }
+    .modal-section ul li::before { content: "▸"; position: absolute; left: 0; color: var(--accent); }
+    .investigate-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); color: #60a5fa; padding: 10px 16px; border-radius: 10px; font-size: 0.88rem; cursor: pointer; font-family: inherit; transition: var(--transition); margin-top: 10px; }
+    .investigate-btn:hover { background: rgba(59,130,246,0.25); }
+    .investigate-result { margin-top: 14px; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 14px; font-size: 0.87rem; line-height: 1.7; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
+
+    /* ===== COMPARAR ===== */
+    .compare-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+    .compare-selectors { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 32px; }
+    .compare-select { flex: 1; min-width: 200px; max-width: 280px; padding: 10px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.9rem; cursor: pointer; outline: none; }
+    .compare-select:focus { border-color: var(--accent); }
+    .compare-result { display: none; }
+    .compare-result.show { display: block; animation: fadeIn 0.3s ease; }
+    .compare-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .compare-table th, .compare-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+    .compare-table th { background: var(--bg3); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    .compare-table tr:hover td { background: var(--bg3); }
+    .compare-topic { color: var(--accent); font-weight: 600; }
+    .compare-ai-result { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-top: 20px; font-size: 0.9rem; line-height: 1.7; white-space: pre-wrap; }
+    .compare-ai-result .loading { color: var(--muted); }
+
+    /* ===== FACTIBILIDAD ===== */
+    .fact-wrap { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+    .fact-input-area { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+    .fact-select-party { width: 100%; padding: 10px 14px; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.9rem; margin-bottom: 12px; cursor: pointer; outline: none; }
+    .fact-select-party:focus { border-color: var(--accent); }
+    #factInput { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.9rem; padding: 12px 14px; resize: vertical; min-height: 100px; outline: none; transition: var(--transition); }
+    #factInput:focus { border-color: var(--accent); }
+    #factInput::placeholder { color: var(--muted); }
+    .fact-result { display: none; }
+    .fact-result.show { display: block; animation: fadeIn 0.3s ease; }
+    .fact-score { text-align: center; margin-bottom: 28px; }
+    .fact-meter { display: inline-flex; flex-direction: column; align-items: center; gap: 12px; }
+    .fact-circle { width: 100px; height: 100px; border-radius: 50%; border: 6px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; position: relative; }
+    .fact-circle.high { border-color: var(--green); color: var(--green); }
+    .fact-circle.medium { border-color: var(--gold); color: var(--gold); }
+    .fact-circle.low { border-color: var(--accent); color: var(--accent); }
+    .fact-score-label { font-size: 0.85rem; color: var(--muted); }
+    .fact-analysis { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; font-size: 0.9rem; line-height: 1.7; white-space: pre-wrap; }
+
+    /* LOADING SPINNER */
+    .spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 12px; }
+    .empty-state p { font-size: 0.95rem; line-height: 1.7; max-width: 400px; margin: 0 auto; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 18px; font-size: 0.88rem; z-index: 300; animation: slideUp 0.3s ease; box-shadow: var(--shadow); }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .chat-sidebar { display: none; }
+      .nav-tabs { gap: 0; }
+      .tab-btn { padding: 8px 10px; font-size: 0.78rem; }
+      .tab-btn span { display: none; }
+      h1 { font-size: 1.8rem; }
+      .features { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .features { grid-template-columns: 1fr; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 100px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo" onclick="showSection('inicio')">
+      <div class="logo-flag"><span></span><span></span><span></span></div>
+      <span>Voto<span>Informado</span> 2026</span>
+    </a>
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="showSection('inicio')" id="tab-inicio">🏠 <span>Inicio</span></button>
+      <button class="tab-btn" onclick="showSection('consultar')" id="tab-consultar">💬 <span>Consultar Plan</span></button>
+      <button class="tab-btn" onclick="showSection('quiz')" id="tab-quiz">🗳️ <span>Quiz</span></button>
+      <button class="tab-btn" onclick="showSection('candidatos')" id="tab-candidatos">👤 <span>Candidatos</span></button>
+      <button class="tab-btn" onclick="showSection('comparar')" id="tab-comparar">⚖️ <span>Comparar</span></button>
+      <button class="tab-btn" onclick="showSection('factibilidad')" id="tab-factibilidad">✅ <span>Factibilidad</span></button>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- ==================== INICIO ==================== -->
+<section class="section active" id="inicio">
+  <div class="hero">
+    <div class="hero-badge">Elecciones Generales · 12 de Abril 2026</div>
+    <h1>Toma decisiones basadas<br>en <span>hechos, no promesas</span></h1>
+    <p>Explora los planes de gobierno de los 34 partidos políticos, descubre qué candidato se alinea con tus valores y accede a investigaciones verificadas sobre cada candidato.</p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" onclick="showSection('quiz')">🗳️ Descubrir mi candidato ideal</button>
+      <button class="btn btn-secondary" onclick="showSection('consultar')">💬 Consultar un plan de gobierno</button>
+      <button class="btn btn-outline" onclick="showSection('candidatos')">👤 Ver candidatos</button>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature-card" onclick="showSection('consultar')">
+      <div class="feature-icon">💬</div>
+      <h3>Consulta el Plan de Gobierno</h3>
+      <p>Pregunta cualquier cosa sobre los planes y obtén respuestas con citas exactas de los documentos oficiales. Sin alucinaciones.</p>
+    </div>
+    <div class="feature-card" onclick="showSection('quiz')">
+      <div class="feature-icon">🗳️</div>
+      <h3>Quiz Electoral</h3>
+      <p>Responde 10 preguntas sobre tus valores y descubre qué partido político se alinea mejor contigo.</p>
+    </div>
+    <div class="feature-card" onclick="showSection('candidatos')">
+      <div class="feature-icon">🔍</div>
+      <h3>Investiga Candidatos</h3>
+      <p>Conoce el perfil, antecedentes y las investigaciones judiciales de cada candidato presidencial.</p>
+    </div>
+    <div class="feature-card" onclick="showSection('comparar')">
+      <div class="feature-icon">⚖️</div>
+      <h3>Compara Partidos</h3>
+      <p>Confronta las propuestas de hasta 3 partidos en temas clave como educación, economía y seguridad.</p>
+    </div>
+    <div class="feature-card" onclick="showSection('factibilidad')">
+      <div class="feature-icon">✅</div>
+      <h3>Verificador de Factibilidad</h3>
+      <p>¿Es realista esa promesa? Nuestro verificador analiza la viabilidad de las propuestas de campaña.</p>
+    </div>
+    <div class="feature-card" onclick="showSection('consultar'); setTimeout(()=>setMode('web'),300)">
+      <div class="feature-icon">🌐</div>
+      <h3>Búsqueda en Internet</h3>
+      <p>Busca noticias, denuncias y condenas de los candidatos con información actualizada de la web.</p>
+    </div>
+  </div>
+
+  <div class="quick-qs">
+    <h2>💡 Preguntas que otros ya hicieron:</h2>
+    <div class="quick-qs-grid">
+      <button class="quick-q" onclick="askQuick('¿Qué propone Keiko Fujimori sobre seguridad ciudadana?')">¿Qué propone Keiko sobre seguridad?</button>
+      <button class="quick-q" onclick="askQuick('¿Cuál es el plan educativo de Renovación Popular?')">Plan educativo de Renovación Popular</button>
+      <button class="quick-q" onclick="askQuick('¿Qué propone César Acuña para el empleo?')">¿Qué propone Acuña para el empleo?</button>
+      <button class="quick-q" onclick="askQuick('¿Tiene denuncias Vladimir Cerrón?', 'web')">¿Tiene denuncias Cerrón?</button>
+      <button class="quick-q" onclick="askQuick('¿Qué propone el Partido Morado para el medio ambiente?')">Medio ambiente — Partido Morado</button>
+      <button class="quick-q" onclick="askQuick('¿Qué partido propone más subsidios sociales?')">¿Quién propone más subsidios?</button>
+      <button class="quick-q" onclick="askQuick('¿Cuáles son las propuestas de salud del APRA?')">Propuestas de salud del APRA</button>
+      <button class="quick-q" onclick="askQuick('¿Tiene investigaciones Rafael López Aliaga?', 'web')">Investigaciones sobre López Aliaga</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONSULTAR ==================== -->
+<section class="section" id="consultar">
+  <div class="chat-layout">
+    <div class="chat-sidebar" id="chatSidebar">
+      <div class="sidebar-label">Filtrar por partido</div>
+      <div class="party-filter selected" data-party="" onclick="selectPartyFilter(this)">
+        <div class="party-dot" style="background:#ffffff40"></div>
+        <span class="party-filter-name">Todos los partidos</span>
+      </div>
+      <div id="partySidebarList"></div>
+    </div>
+    <div class="chat-main">
+      <div class="chat-mode-bar">
+        <button class="mode-btn active" id="modeDoc" onclick="setMode('doc')">
+          <div class="mode-dot" style="background:var(--accent)"></div>
+          📄 Planes de Gobierno
+        </button>
+        <button class="mode-btn" id="modeWeb" onclick="setMode('web')">
+          <div class="mode-dot" style="background:var(--blue)"></div>
+          🌐 Búsqueda Web (candidatos/noticias)
+        </button>
+        <button class="mode-btn" id="modeFact" onclick="setMode('factibility')">
+          <div class="mode-dot" style="background:var(--green)"></div>
+          ✅ Factibilidad
+        </button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="empty-state">
+          <div class="icon">🗳️</div>
+          <p>¡Hola! Soy tu asistente electoral para las <strong>Elecciones Perú 2026</strong>.<br><br>Puedes preguntarme sobre los planes de gobierno de los 34 partidos inscritos, investigaciones sobre candidatos o si una propuesta es factible. Siempre cito el párrafo exacto del documento oficial.</p>
+        </div>
+      </div>
+      <div class="chat-input-wrap">
+        <div class="chat-input-row">
+          <textarea id="chatInput" placeholder="Ej: ¿Qué propone Fuerza Popular para la educación?" rows="1" onkeydown="handleEnter(event)" oninput="autoResize(this)"></textarea>
+          <button class="chat-send" id="sendBtn" onclick="sendMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== QUIZ ==================== -->
+<section class="section" id="quiz">
+  <div class="quiz-wrap">
+    <div class="quiz-header">
+      <h2>🗳️ ¿Con quién votar?</h2>
+      <p>Responde estas 10 preguntas para descubrir qué partido político representa mejor tus valores.</p>
+    </div>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgress" style="width:0%"></div></div>
+
+    <div id="quizSteps">
+      <!-- Steps injected by JS -->
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="result-title">🎉 Tu resultado electoral</div>
+      <div class="result-sub">Basado en tus respuestas, estos son los partidos más afines a tu visión del Perú:</div>
+      <div class="result-list" id="resultList"></div>
+      <div style="text-align:center;margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="showSection('candidatos')">👤 Ver candidatos</button>
+        <button class="btn btn-secondary" onclick="restartQuiz()">🔄 Repetir quiz</button>
+        <button class="btn btn-outline" onclick="explainResults()">🤖 Explicar por qué con IA</button>
+      </div>
+      <div id="quizExplain" style="display:none;margin-top:20px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;font-size:0.9rem;line-height:1.7"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CANDIDATOS ==================== -->
+<section class="section" id="candidatos">
+  <div class="candidates-wrap">
+    <div class="section-header">
+      <h2>👤 Candidatos Presidenciales</h2>
+      <p>Conoce el perfil de los 34 candidatos presidenciales, sus propuestas clave y su historial judicial.</p>
+    </div>
+    <div class="cand-filter-row">
+      <button class="cand-filter-btn active" onclick="filterCandidates('todos', this)">Todos</button>
+      <button class="cand-filter-btn" onclick="filterCandidates('derecha', this)">Derecha</button>
+      <button class="cand-filter-btn" onclick="filterCandidates('centro', this)">Centro</button>
+      <button class="cand-filter-btn" onclick="filterCandidates('izquierda', this)">Izquierda</button>
+      <button class="cand-filter-btn" onclick="filterCandidates('investigado', this)">⚠️ Con investigaciones</button>
+    </div>
+    <div class="cand-grid" id="candGrid"></div>
+  </div>
+</section>
+
+<!-- ==================== COMPARAR ==================== -->
+<section class="section" id="comparar">
+  <div class="compare-wrap">
+    <div class="section-header">
+      <h2>⚖️ Comparar Planes de Gobierno</h2>
+      <p>Selecciona hasta 3 partidos para comparar sus propuestas en los temas que más te importan.</p>
+    </div>
+    <div class="compare-selectors">
+      <select class="compare-select" id="compare1" onchange="updateCompare()">
+        <option value="">— Partido 1 —</option>
+      </select>
+      <select class="compare-select" id="compare2" onchange="updateCompare()">
+        <option value="">— Partido 2 —</option>
+      </select>
+      <select class="compare-select" id="compare3" onchange="updateCompare()">
+        <option value="">— Partido 3 (opcional) —</option>
+      </select>
+    </div>
+    <div style="text-align:center;margin-bottom:20px">
+      <button class="btn btn-primary" onclick="runCompare()">⚖️ Comparar con IA</button>
+    </div>
+    <div class="compare-result" id="compareResult">
+      <div id="compareAiResult" class="compare-ai-result"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FACTIBILIDAD ==================== -->
+<section class="section" id="factibilidad">
+  <div class="fact-wrap">
+    <div class="section-header">
+      <h2>✅ Verificador de Factibilidad</h2>
+      <p>¿Es realista esa promesa de campaña? Analiza la viabilidad económica y técnica de cualquier propuesta.</p>
+    </div>
+    <div class="fact-input-area">
+      <select class="fact-select-party" id="factParty">
+        <option value="">— Seleccionar partido (opcional) —</option>
+      </select>
+      <textarea id="factInput" placeholder="Ej: 'Construir 1,000 hospitales en 5 años' o 'Duplicar el sueldo mínimo en el primer año de gobierno'..."></textarea>
+      <div style="margin-top:12px;text-align:right">
+        <button class="btn btn-primary" onclick="runFactibility()">✅ Analizar factibilidad</button>
+      </div>
+    </div>
+    <div class="fact-result" id="factResult">
+      <div class="fact-score">
+        <div class="fact-meter">
+          <div class="fact-circle" id="factCircle">?</div>
+          <div class="fact-score-label" id="factLabel">Analizando...</div>
+        </div>
+      </div>
+      <div class="fact-analysis" id="factAnalysis"></div>
+    </div>
+    <div style="margin-top:24px">
+      <div class="sidebar-label" style="margin-bottom:12px">Propuestas de ejemplo para analizar:</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="quick-q" onclick="quickFact('Reducir la informalidad laboral al 20% en 5 años')">Reducir informalidad al 20%</button>
+        <button class="quick-q" onclick="quickFact('Dar a cada peruano S/500 al mes como ingreso básico universal')">Ingreso básico S/500 mensuales</button>
+        <button class="quick-q" onclick="quickFact('Construir un tren de alta velocidad Lima-Cusco')">Tren Lima-Cusco</button>
+        <button class="quick-q" onclick="quickFact('Aumentar el sueldo mínimo de S/1,025 a S/2,000 en el primer año')">Duplicar el sueldo mínimo</button>
+        <button class="quick-q" onclick="quickFact('Erradicar la corrupción estatal en los primeros 100 días de gobierno')">Erradicar corrupción en 100 días</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- MODAL CANDIDATO -->
+<div class="modal-overlay" id="candModal" onclick="closeCandModal(event)">
+  <div class="modal" id="candModalContent">
+    <div class="modal-header">
+      <h3 id="modalName"></h3>
+      <button class="modal-close" onclick="closeCandModalDirect()">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ===========================
+// DATA
+// ===========================
+const PARTIES = [
+  {id:"renovacion_popular",name:"Renovación Popular",candidate:"Rafael López Aliaga",ideology:"Conservador · Derecha",color:"#E63946",spectrum:"derecha",status:"sin_condena",statusLabel:"Sin condenas",investigations:"Cuestionado por declaraciones. Sin procesos penales activos conocidos.",bio:"Empresario del sector inmobiliario. Ex-candidato presidencial 2021. Alcalde de Lima desde 2022. Conocido por posiciones ultraconservadoras y católicas. Apodado 'el Porky'.",keyProposals:["Mano dura contra la delincuencia — cero beneficios penitenciarios","Reducción del aparato estatal y ministerios","Educación basada en valores y familia","Libre mercado sin intervención estatal"]},
+  {id:"fuerza_popular",name:"Fuerza Popular",candidate:"Keiko Fujimori",ideology:"Conservador · Centro-Derecha",color:"#F4A261",spectrum:"derecha",status:"investigado",statusLabel:"Investigada",investigations:"Ha enfrentado múltiples investigaciones por lavado de activos y financiamiento ilegal de campaña (caso Odebrecht). Ha estado en prisión preventiva en dos ocasiones (2018 y 2019). Actualmente libre, con juicio oral en curso.",bio:"Hija del ex-presidente Alberto Fujimori. Ex-congresista. Candidata presidencial en 2011, 2016 y 2021. Ha perdido las tres veces en segunda vuelta. Lideresa del principal partido de derecha del Perú.",keyProposals:["Seguridad ciudadana con penas máximas","Plan de reactivación económica post-COVID","Fortalecimiento del sistema de salud","Reforma educativa con énfasis en calidad"]},
+  {id:"alianza_progreso",name:"Alianza para el Progreso",candidate:"César Acuña",ideology:"Centro",color:"#2A9D8F",spectrum:"centro",status:"investigado",statusLabel:"Investigado",investigations:"Ha sido investigado por presunta compra de votos mediante la entrega de dinero en efectivo ('regalos') a ciudadanos. También investigaciones por lavado de activos vinculadas a sus empresas educativas. Inhabilitado temporalmente por el JNE en 2016.",bio:"Empresario del sector educativo, dueño de varias universidades e institutos. Ex-alcalde de Trujillo y ex-gobernador regional de La Libertad. Fundador y presidente de APP.",keyProposals:["Reactivación económica e inversión privada","Descentralización del poder al interior","Reforma de las universidades públicas","Seguridad ciudadana con presencia policial"]},
+  {id:"somos_peru",name:"Somos Perú",candidate:"George Forsyth",ideology:"Centro · Liberal",color:"#264653",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales de relevancia conocidas.",bio:"Ex-arquero profesional de fútbol. Ex-alcalde del distrito de La Victoria (Lima) 2019-2022. Conocido por su gestión en seguridad ciudadana en La Victoria. Candidato presidencial por primera vez.",keyProposals:["Seguridad ciudadana — modelo La Victoria a nivel nacional","Modernización del Estado","Desarrollo de la agricultura y regiones","Lucha contra la corrupción con nuevas herramientas"]},
+  {id:"peru_libre",name:"Perú Libre",candidate:"Vladimir Cerrón",ideology:"Izquierda · Marxista-Leninista",color:"#e9c46a",spectrum:"izquierda",status:"fugitivo",statusLabel:"PRÓFUGO — Condena firme",investigations:"⚠️ CONDENA FIRME por corrupción (peculado doloso) de cuando fue gobernador regional de Junín. Prófugo de la justicia desde 2023, con orden de prisión preventiva vigente. Considerado autor intelectual de la crisis política del gobierno Castillo.",bio:"Médico de profesión. Fundador del partido Perú Libre. Ex-gobernador regional de Junín. Candidato y caudillo detrás del gobierno de Pedro Castillo. Actualmente prófugo de la justicia con sentencia condenatoria firme.",keyProposals:["Asamblea constituyente y nueva constitución","Nacionalización de recursos naturales","Estado rector de la economía","Educación y salud 100% gratuitas"]},
+  {id:"avanza_pais",name:"Avanza País",candidate:"José Williams",ideology:"Centro-Derecha",color:"#1D3557",spectrum:"derecha",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Ex-almirante de la Marina de Guerra del Perú. Ex-presidente del Congreso de la República (2022-2023). Militar de carrera convertido en político. Conocido por su postura firme ante el gobierno Castillo.",keyProposals:["Orden, seguridad y fortalecimiento de las FFAA","Economía de libre mercado","Lucha frontal contra el narcotráfico","Modernización de las instituciones del Estado"]},
+  {id:"juntos_por_el_peru",name:"Juntos por el Perú",candidate:"Roberto Sánchez",ideology:"Izquierda Democrática",color:"#E76F51",spectrum:"izquierda",status:"investigado",statusLabel:"Investigado",investigations:"Fue ministro de Comercio Exterior y Turismo durante el gobierno de Pedro Castillo. Investigado en el marco de las investigaciones al gabinete Castillo.",bio:"Politólogo y ex-funcionario del Estado. Ex-ministro durante el gobierno de Pedro Castillo. Representante de la izquierda democrática, distanciada del radicalismo de Perú Libre.",keyProposals:["Reforma constitucional democrática","Mayor inversión en salud y educación pública","Desarrollo sostenible y economía verde","Descentralización efectiva del presupuesto"]},
+  {id:"partido_morado",name:"Partido Morado",candidate:"Mesías Guevara",ideology:"Centro-Izquierda · Liberal",color:"#8338EC",spectrum:"izquierda",status:"investigado",statusLabel:"Investigaciones menores",investigations:"Ha enfrentado algunas investigaciones menores relacionadas con su gestión como gobernador regional de Cajamarca.",bio:"Ex-gobernador regional de Cajamarca. Ex-congresista. Representa la corriente progresista liberal dentro de la política peruana. El Partido Morado fue fundado por Julio Guzmán.",keyProposals:["Reforma política y anticorrupción","Descentralización fiscal","Economía verde e innovación","Derechos civiles y Estado laico"]},
+  {id:"alianza_unidad_nacional",name:"Alianza Unidad Nacional",candidate:"Roberto Chiabra",ideology:"Centro-Derecha",color:"#023E8A",spectrum:"derecha",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"General de División (r) del Ejército Peruano. Ex-ministro de Defensa. Tiene extensa carrera militar y experiencia en gestión de seguridad nacional.",keyProposals:["Seguridad nacional y orden interno","Reforma del sistema de justicia","Modernización de las FFAA","Inversión en infraestructura y empleo"]},
+  {id:"alianza_fuerza_libertad",name:"Alianza Fuerza y Libertad",candidate:"Fiorella Molinelli",ideology:"Centro-Derecha",color:"#F72585",spectrum:"derecha",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Ex-presidenta ejecutiva de EsSalud (Seguro Social de Salud del Perú). Tecnócrata con experiencia en gestión de salud pública. Primera candidata presidencial de esta alianza.",keyProposals:["Reforma profunda del sistema de salud","Reactivación económica post-pandemia","Lucha contra la corrupción con mecanismos técnicos","Fortalecimiento institucional del Estado"]},
+  {id:"partido_buen_gobierno",name:"Partido del Buen Gobierno",candidate:"Jorge Nieto",ideology:"Centro",color:"#4CC9F0",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Ex-ministro de Defensa y analista político. Intelectual peruano con amplia experiencia en el sector público. Conocido por sus análisis críticos del sistema político peruano.",keyProposals:["Reforma institucional del Estado","Descentralización y buen gobierno","Transparencia y anticorrupción","Desarrollo sostenible e inclusivo"]},
+  {id:"fe_en_el_peru",name:"Fe en el Perú",candidate:"Álvaro Paz de la Barra",ideology:"Centro-Derecha · Cristiano",color:"#7209B7",spectrum:"derecha",status:"investigado",statusLabel:"Investigado",investigations:"Ha sido investigado por presunta corrupción en relación a su gestión como alcalde del distrito de Los Olivos.",bio:"Ex-alcalde del distrito de Los Olivos (Lima). Político cristiano-demócrata con enfoque en valores familiares y responsabilidad social.",keyProposals:["Seguridad ciudadana con valores","Familia como eje de la política social","Descentralización y municipalización de servicios","Lucha contra la corrupción"]},
+  {id:"libertad_popular",name:"Libertad Popular",candidate:"Rafael Belaunde",ideology:"Liberal · Derecha",color:"#F15025",spectrum:"derecha",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Empresario y figura pública. Representante de la corriente liberal-conservadora. El partido busca retomar los ideales del AP fundado por Fernando Belaúnde Terry.",keyProposals:["Libre mercado y reducción del Estado","Seguridad ciudadana estricta","Descentralización","Reforma del sistema judicial"]},
+  {id:"partido_aprista_peruano",name:"Partido Aprista Peruano (APRA)",candidate:"Enrique Valderrama",ideology:"Centro-Izquierda · Social-democracia",color:"#C1121F",spectrum:"izquierda",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas del candidato.",bio:"Dirigente aprista. El APRA es el partido político más antiguo del Perú, fundado por Víctor Raúl Haya de la Torre. Ha gobernado en 1985-1990 (Alan García) y 2006-2011.",keyProposals:["Estado solidario y social-demócrata","Reactivación económica con inclusión","Reforma del Estado","Educación pública de calidad"]},
+  {id:"peru_primero",name:"Perú Primero",candidate:"Mario Vizcarra",ideology:"Centro",color:"#0096C7",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Hermano del ex-presidente Martín Vizcarra. Sin investigaciones propias conocidas.",bio:"Hermano del ex-presidente Martín Vizcarra. Ingresa a la política aprovechando el apellido familiar. El ex-presidente Martín Vizcarra tiene investigaciones por corrupción activas.",keyProposals:["Reformas institucionales","Reactivación económica","Lucha contra la corrupción","Descentralización regional"]},
+  {id:"civico_obras",name:"Partido Cívico Obras",candidate:"Ricardo Belmont",ideology:"Centro · Populista",color:"#40916C",spectrum:"centro",status:"investigado",statusLabel:"Con antecedentes",investigations:"Ha tenido diversas investigaciones a lo largo de su carrera pública. Conocido por casos vinculados a su gestión en Lima.",bio:"Ex-arquero, empresario, animador de televisión y ex-alcalde de Lima (1990-1998). Una de las figuras más populistas y carismáticas de la política limeña. Lema: 'Ricardo sí trabaja'.",keyProposals:["Obras de infraestructura","Seguridad ciudadana","Apoyo a las PYMES","Gestión municipal eficiente"]},
+  {id:"cooperacion_popular",name:"Cooperación Popular",candidate:"Yonhy Lescano",ideology:"Centro-Izquierda",color:"#9D4EDD",spectrum:"centro",status:"investigado",statusLabel:"Acusado (acoso)",investigations:"Fue acusado de acoso sexual por varias trabajadoras del Congreso. El caso tuvo amplia difusión mediática. Fue sancionado con suspensión del cargo.",bio:"Ex-congresista por múltiples períodos. Candidato presidencial en 2021 (llegó a la primera vuelta con alta votación). Conocido por sus posiciones populistas y su estilo combativo en el Congreso.",keyProposals:["Economía popular con mercado","Mayor regulación de las empresas extractivas","Descentralización fiscal","Reforma del Congreso"]},
+  {id:"podemos_peru",name:"Podemos Perú",candidate:"José Luna Gálvez",ideology:"Centro",color:"#4361EE",spectrum:"centro",status:"investigado",statusLabel:"Investigado",investigations:"Ha sido investigado por evasión fiscal y otros delitos vinculados a sus empresas educativas. También investigaciones por presunta corrupción en el ámbito empresarial.",bio:"Empresario del sector educativo. Ex-congresista. Fundador del partido Podemos Perú. Conocido por sus negocios en educación privada.",keyProposals:["Reactivación económica","Educación con valores","Seguridad ciudadana","Apoyo a la pequeña empresa"]},
+  {id:"progresemos",name:"Progresemos",candidate:"Paul Jaimes",ideology:"Centro",color:"#06D6A0",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Político con experiencia en gestión pública. Candidato por el partido Progresemos, que propone un Estado moderno y eficiente.",keyProposals:["Estado eficiente y moderno","Reactivación de PYMES","Emprendimiento digital","Lucha contra la corrupción"]},
+  {id:"ahora_nacion",name:"Ahora Nación",candidate:"Alfonso López Chau",ideology:"Regionalista",color:"#118AB2",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Político con enfoque en el desarrollo regional. Propone dar más poder a las regiones para impulsar su propio desarrollo económico.",keyProposals:["Poder a las regiones y mercados del mundo","Descentralización radical","Desarrollo de economías regionales","Autonomía regional para la minería"]},
+  {id:"salvemos_al_peru",name:"Salvemos al Perú",candidate:"Antonio Ortiz",ideology:"Centro-Progresista",color:"#EF476F",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Político peruano. Lidera el partido Salvemos al Perú con propuestas de centro orientadas al progreso social y económico.",keyProposals:["Reformas progresistas moderadas","Seguridad ciudadana","Desarrollo económico sostenible","Lucha contra la corrupción"]},
+  {id:"prin_regionalista",name:"PRIN Regionalista",candidate:"Walter Chirinos",ideology:"Regionalista",color:"#26547C",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Político regionalista. El Partido Regionalista de Integración Nacional busca fortalecer las regiones frente al centralismo limeño.",keyProposals:["Descentralización total del Estado","Poder económico a las regiones","Desarrollo de la agricultura regional","Representación equitativa en el Congreso"]},
+  {id:"sicreo",name:"SíCreo",candidate:"Carlos Espá",ideology:"Centro",color:"#FF6B6B",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Candidato del partido SíCreo. Propone un Perú mejor basado en valores y buen gobierno.",keyProposals:["Valores y ética en el gobierno","Lucha contra la corrupción","Desarrollo económico inclusivo","Reforma del Estado"]},
+  {id:"frente_esperanza",name:"Frente de la Esperanza",candidate:"Fernando Olivera",ideology:"Centro",color:"#FFD166",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas relevantes.",bio:"Ex-ministro de Justicia y ex-congresista. Figura política de larga data con experiencia en el sistema judicial peruano.",keyProposals:["Reforma del sistema de justicia","Refundación del Estado","Lucha contra la corrupción","Orden y seguridad ciudadana"]},
+  {id:"pais_para_todos",name:"País para Todos",candidate:"Carlos Álvarez",ideology:"Centro",color:"#06D6A0",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Candidato del partido País para Todos. Propone un enfoque integrador y de gestión técnica del Estado.",keyProposals:["Estado técnico y eficiente","Inclusión social","Desarrollo regional","Lucha contra la corrupción"]},
+  {id:"patriotico_peru",name:"Partido Patriótico del Perú",candidate:"Herbert Caller",ideology:"Nacionalista",color:"#073B4C",spectrum:"derecha",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Fundador del Partido Patriótico del Perú. Organización de alcance nacional fundada el 28 de julio de 2017.",keyProposals:["Soberanía nacional","Fuerzas Armadas fortalecidas","Patriotismo económico","Orden y seguridad"]},
+  {id:"alianza_venceremos",name:"Alianza Electoral Venceremos",candidate:"Ronald Atencio",ideology:"Izquierda Radical",color:"#D62828",spectrum:"izquierda",status:"limpio",statusLabel:"Sin condenas conocidas",investigations:"Sin investigaciones penales conocidas del candidato.",bio:"Candidato de la alianza de izquierda radical que incluye a Voces del Pueblo, Nuevo Perú, Unidad Popular, Partido Comunista del Perú: Patria Roja y otros.",keyProposals:["Nueva constitución mediante asamblea constituyente","Nacionalización de recursos naturales","Estado social pleno","Soberanía alimentaria"]},
+  {id:"peru_moderno",name:"Perú Moderno",candidate:"Carlos Jaico",ideology:"Centro",color:"#3A86FF",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Candidato del partido Perú Moderno, orientado al desarrollo del Perú hacia 2040 con propuestas de modernización estatal.",keyProposals:["Modernización del Estado","Inversión en tecnología e innovación","Puentes para el desarrollo","Descentralización inteligente"]},
+  {id:"democrata_verde",name:"Partido Demócrata Verde",candidate:"Por confirmar",ideology:"Centro · Ecologista",color:"#2DC653",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Partido de orientación ecologista y democrática. Propone un desarrollo económico en armonía con el medio ambiente.",keyProposals:["Economía verde y sostenible","Protección del medio ambiente","Democracia directa","Desarrollo sostenible regional"]},
+  {id:"integridad_democratica",name:"Integridad Democrática",candidate:"Por confirmar",ideology:"Centro",color:"#6D6875",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Partido orientado a la ética en el gobierno y la lucha contra la corrupción.",keyProposals:["Anticorrupción como eje central","Seguridad ciudadana","Emprendimiento formal","Estado sin corrupción"]},
+  {id:"peru_accion",name:"Perú Acción (Mano de Hierro)",candidate:"Por confirmar",ideology:"Derecha · Populista",color:"#BB3E03",spectrum:"derecha",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Partido con propuesta de reforma radical del Estado, con énfasis en la lucha contra la corrupción y el delito.",keyProposals:["Mano de hierro contra la delincuencia","Reforma radical del Estado","Eliminación de la burocracia corrupta","Estado al servicio del ciudadano"]},
+  {id:"unido_peru",name:"Unido Perú",candidate:"Por confirmar",ideology:"Liberal · Derecha",color:"#9E2A2B",spectrum:"derecha",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Partido liberal de derecha que propone la reducción del Estado y mayor libertad económica.",keyProposals:["Reducción del Estado","Libertad económica total","Anticorrupción","Seguridad ciudadana"]},
+  {id:"un_camino_diferente",name:"Un Camino Diferente",candidate:"Por confirmar",ideology:"Centro",color:"#5F0F40",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Partido que propone una alternativa diferente al sistema político tradicional con reformas estructurales.",keyProposals:["Descentralización del Congreso (Puno)","Presidencia en Trujillo","Reforma estructural del Estado","Ministerios en el interior del país"]},
+  {id:"partido_democratico_federal",name:"Partido Demócrata Federal",candidate:"Por confirmar",ideology:"Federal · Centro",color:"#344E41",spectrum:"centro",status:"limpio",statusLabel:"Sin condenas",investigations:"Sin investigaciones penales conocidas.",bio:"Partido que propone un modelo federal de Estado para el Perú, con mayor autonomía para las regiones.",keyProposals:["Modelo federal de Estado","Descentralización total","Justicia comunitaria","Derecho al emprendimiento"]},
+];
+
+// Quiz questions and party positions
+const QUIZ_QUESTIONS = [
+  {id:"seg",q:"Las penas para delincuentes violentos deben ser mucho más duras (sin beneficios penitenciarios)",left:"Garantismo — resocializar al reo",right:"Mano dura — cero tolerancia"},
+  {id:"eco",q:"El Estado debe intervenir más en la economía: regular precios, controlar sectores estratégicos",left:"Libre mercado total",right:"Más control estatal"},
+  {id:"edu",q:"La educación universitaria pública debe ser completamente gratuita para todos los peruanos",left:"Cada quien paga según sus posibilidades",right:"100% gratuita y financiada por el Estado"},
+  {id:"amb",q:"La explotación minera debe regularse mucho más, aunque afecte el crecimiento económico",left:"El crecimiento primero",right:"El medio ambiente primero"},
+  {id:"abo",q:"El aborto debe despenalizarse, al menos en casos de violación o riesgo de vida",left:"Totalmente en contra",right:"Totalmente a favor"},
+  {id:"lgb",q:"Las personas del mismo sexo deben tener los mismos derechos para casarse y adoptar hijos",left:"Solo matrimonio hombre-mujer",right:"Igualdad total de derechos"},
+  {id:"des",q:"El gobierno central debe transferir más presupuesto y poder de decisión a las regiones",left:"Lima debe centralizar el control",right:"Total autonomía regional"},
+  {id:"anti",q:"Los funcionarios corruptos deben recibir las penas máximas, incluso cadena perpetua",left:"Las penas actuales son suficientes",right:"Penas máximas para corruptos"},
+  {id:"ffa",q:"Las Fuerzas Armadas deben apoyar activamente a la Policía en seguridad ciudadana interna",left:"Las FFAA solo para defensa exterior",right:"FFAA en las calles contra el crimen"},
+  {id:"int",q:"Perú debe mantener relaciones diplomáticas y comerciales activas con Venezuela y Cuba",left:"No, hay que distanciarse de esos gobiernos",right:"Sí, relaciones sin condicionamientos"}
+];
+
+const PARTY_POSITIONS = {
+  renovacion_popular:     {seg:5,eco:1,edu:2,amb:1,abo:1,lgb:1,des:3,anti:5,ffa:5,int:1},
+  fuerza_popular:         {seg:5,eco:2,edu:3,amb:2,abo:1,lgb:1,des:3,anti:3,ffa:4,int:1},
+  alianza_progreso:       {seg:4,eco:3,edu:4,amb:3,abo:2,lgb:2,des:4,anti:4,ffa:3,int:2},
+  avanza_pais:            {seg:4,eco:2,edu:3,amb:2,abo:1,lgb:1,des:4,anti:4,ffa:4,int:1},
+  libertad_popular:       {seg:5,eco:1,edu:2,amb:1,abo:1,lgb:1,des:3,anti:5,ffa:5,int:1},
+  alianza_fuerza_libertad:{seg:4,eco:2,edu:3,amb:2,abo:1,lgb:1,des:3,anti:4,ffa:4,int:1},
+  alianza_unidad_nacional:{seg:4,eco:2,edu:3,amb:2,abo:1,lgb:1,des:3,anti:4,ffa:4,int:1},
+  fe_en_el_peru:          {seg:4,eco:3,edu:3,amb:2,abo:1,lgb:1,des:3,anti:4,ffa:4,int:1},
+  partido_buen_gobierno:  {seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:4,anti:4,ffa:3,int:2},
+  somos_peru:             {seg:3,eco:3,edu:4,amb:3,abo:3,lgb:3,des:4,anti:4,ffa:3,int:2},
+  partido_morado:         {seg:3,eco:3,edu:4,amb:4,abo:4,lgb:4,des:4,anti:4,ffa:2,int:3},
+  pais_para_todos:        {seg:3,eco:3,edu:4,amb:3,abo:3,lgb:3,des:4,anti:4,ffa:3,int:3},
+  cooperacion_popular:    {seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:5,anti:4,ffa:3,int:3},
+  partido_aprista_peruano:{seg:3,eco:4,edu:5,amb:3,abo:2,lgb:2,des:4,anti:3,ffa:3,int:3},
+  progresemos:            {seg:3,eco:3,edu:3,amb:3,abo:2,lgb:2,des:4,anti:4,ffa:3,int:2},
+  juntos_por_el_peru:     {seg:2,eco:4,edu:5,amb:4,abo:4,lgb:4,des:5,anti:4,ffa:2,int:4},
+  peru_libre:             {seg:2,eco:5,edu:5,amb:4,abo:4,lgb:4,des:5,anti:3,ffa:2,int:5},
+  alianza_venceremos:     {seg:2,eco:5,edu:5,amb:5,abo:5,lgb:5,des:5,anti:3,ffa:1,int:5},
+  peru_primero:           {seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:4,anti:4,ffa:3,int:2},
+  civico_obras:           {seg:4,eco:3,edu:4,amb:3,abo:2,lgb:2,des:4,anti:4,ffa:3,int:2},
+  podemos_peru:           {seg:4,eco:3,edu:4,amb:3,abo:2,lgb:2,des:4,anti:3,ffa:3,int:2},
+  ahora_nacion:           {seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:5,anti:4,ffa:3,int:2},
+  salvemos_al_peru:       {seg:4,eco:3,edu:3,amb:2,abo:1,lgb:2,des:3,anti:4,ffa:4,int:1},
+  prin_regionalista:      {seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:5,anti:4,ffa:3,int:2},
+  sicreo:                 {seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:4,anti:4,ffa:3,int:2},
+  frente_esperanza:       {seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:4,anti:4,ffa:3,int:2},
+  patriotico_peru:        {seg:4,eco:3,edu:3,amb:3,abo:1,lgb:1,des:4,anti:4,ffa:5,int:1},
+  unido_peru:             {seg:5,eco:1,edu:2,amb:2,abo:1,lgb:1,des:3,anti:5,ffa:5,int:1},
+  democrata_verde:        {seg:2,eco:3,edu:4,amb:5,abo:3,lgb:3,des:4,anti:4,ffa:2,int:3},
+  integridad_democratica: {seg:4,eco:3,edu:3,amb:3,abo:2,lgb:2,des:4,anti:5,ffa:4,int:2},
+  peru_accion:            {seg:5,eco:1,edu:2,amb:1,abo:1,lgb:1,des:3,anti:5,ffa:5,int:1},
+  un_camino_diferente:    {seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:5,anti:4,ffa:3,int:2},
+  partido_democratico_federal:{seg:3,eco:3,edu:4,amb:3,abo:2,lgb:2,des:5,anti:4,ffa:3,int:3},
+  peru_moderno:           {seg:3,eco:3,edu:3,amb:3,abo:2,lgb:2,des:4,anti:4,ffa:3,int:2},
+};
+
+const SLIDER_LABELS = {
+  1:"Totalmente en desacuerdo",2:"En desacuerdo",3:"Neutral",4:"De acuerdo",5:"Totalmente de acuerdo"
+};
+
+// ===========================
+// STATE
+// ===========================
+let currentMode = 'doc';
+let selectedParty = '';
+let quizAnswers = {};
+let currentQuizStep = 0;
+
+// ===========================
+// NAVIGATION
+// ===========================
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+  const tab = document.getElementById('tab-' + id);
+  if (tab) tab.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ===========================
+// CHAT
+// ===========================
+function setMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  if (mode === 'doc') document.getElementById('modeDoc').classList.add('active');
+  if (mode === 'web') document.getElementById('modeWeb').classList.add('active');
+  if (mode === 'factibility') document.getElementById('modeFact').classList.add('active');
+}
+
+function handleEnter(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 160) + 'px';
+}
+
+function appendMsg(role, text, citations) {
+  const msgs = document.getElementById('chatMessages');
+  // Remove empty state
+  const empty = msgs.querySelector('.empty-state');
+  if (empty) empty.remove();
+
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.textContent = role === 'user' ? '👤' : '🗳️';
+  const body = document.createElement('div');
+  body.className = 'msg-body';
+  const textDiv = document.createElement('div');
+  textDiv.className = 'msg-text';
+  textDiv.textContent = text;
+  body.appendChild(textDiv);
+
+  if (citations && citations.length > 0) {
+    const citDiv = document.createElement('div');
+    citDiv.className = 'msg-citations';
+    citations.forEach(c => {
+      const tag = document.createElement('a');
+      tag.className = 'citation-tag';
+      tag.textContent = `📄 ${c.party} · Pág. ${c.page}`;
+      tag.href = `/planes/${partyIdToFilename(c.partyId)}#page=${c.page}`;
+      tag.target = '_blank';
+      citDiv.appendChild(tag);
+    });
+    body.appendChild(citDiv);
+  }
+
+  div.appendChild(avatar);
+  div.appendChild(body);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return textDiv;
+}
+
+function appendTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg ai';
+  div.id = 'typing-indicator';
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar';
+  avatar.textContent = '🗳️';
+  const body = document.createElement('div');
+  body.className = 'msg-body';
+  const typing = document.createElement('div');
+  typing.className = 'typing';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  body.appendChild(typing);
+  div.appendChild(avatar);
+  div.appendChild(body);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+function partyIdToFilename(id) {
+  return id + '.pdf';
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const question = input.value.trim();
+  if (!question) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  sendBtn.disabled = true;
+  appendMsg('user', question);
+  appendTyping();
+
+  try {
+    const body = { question, partyId: selectedParty, mode: currentMode };
+    const endpoint = currentMode === 'web' ? '/.netlify/functions/investigate' :
+                     currentMode === 'factibility' ? '/.netlify/functions/factibility' :
+                     '/.netlify/functions/chat';
+
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    removeTyping();
+    if (!res.ok) throw new Error('Error ' + res.status);
+    const data = await res.json();
+    appendMsg('ai', data.response || 'No se pudo obtener respuesta.', data.citations || []);
+  } catch (err) {
+    removeTyping();
+    appendMsg('ai', '⚠️ Error al conectar con el servidor. Asegúrate de que el sitio está desplegado en Netlify con las funciones configuradas correctamente.\n\nError: ' + err.message);
+  } finally {
+    sendBtn.disabled = false;
+  }
+}
+
+function selectPartyFilter(el) {
+  document.querySelectorAll('.party-filter').forEach(f => f.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedParty = el.dataset.party;
+}
+
+function askQuick(question, mode) {
+  showSection('consultar');
+  if (mode) setMode(mode);
+  setTimeout(() => {
+    document.getElementById('chatInput').value = question;
+    sendMessage();
+  }, 100);
+}
+
+// ===========================
+// QUIZ
+// ===========================
+function initQuiz() {
+  currentQuizStep = 0;
+  quizAnswers = {};
+  const container = document.getElementById('quizSteps');
+  container.innerHTML = '';
+
+  QUIZ_QUESTIONS.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-step' + (i === 0 ? ' active' : '');
+    div.id = 'qstep-' + i;
+    div.innerHTML = `
+      <div class="quiz-q-num">Pregunta ${i+1} de ${QUIZ_QUESTIONS.length}</div>
+      <div class="quiz-q">${q.q}</div>
+      <div class="quiz-labels"><span>1 — ${q.left}</span><span>5 — ${q.right}</span></div>
+      <input type="range" class="quiz-slider" min="1" max="5" value="3" id="slider-${q.id}" oninput="updateSliderVal('${q.id}', this.value)">
+      <div class="slider-val" id="sliderval-${q.id}">${SLIDER_LABELS[3]}</div>
+      <div class="quiz-nav">
+        ${i > 0 ? `<button class="btn btn-outline" onclick="prevQuestion(${i})">← Anterior</button>` : '<span></span>'}
+        ${i < QUIZ_QUESTIONS.length - 1
+          ? `<button class="btn btn-primary" onclick="nextQuestion(${i})">Siguiente →</button>`
+          : `<button class="btn btn-primary" onclick="finishQuiz()">🎉 Ver mi resultado</button>`}
+      </div>`;
+    container.appendChild(div);
+  });
+
+  document.getElementById('quizResult').classList.remove('show');
+  document.getElementById('quizProgress').style.width = '0%';
+}
+
+function updateSliderVal(id, val) {
+  document.getElementById('sliderval-' + id).textContent = SLIDER_LABELS[val];
+  quizAnswers[id] = parseInt(val);
+}
+
+function nextQuestion(i) {
+  const q = QUIZ_QUESTIONS[i];
+  const slider = document.getElementById('slider-' + q.id);
+  quizAnswers[q.id] = parseInt(slider.value);
+  document.getElementById('qstep-' + i).classList.remove('active');
+  document.getElementById('qstep-' + (i+1)).classList.add('active');
+  currentQuizStep = i + 1;
+  document.getElementById('quizProgress').style.width = ((i+2) / QUIZ_QUESTIONS.length * 100) + '%';
+  window.scrollTo(0, 0);
+}
+
+function prevQuestion(i) {
+  document.getElementById('qstep-' + i).classList.remove('active');
+  document.getElementById('qstep-' + (i-1)).classList.add('active');
+  currentQuizStep = i - 1;
+  document.getElementById('quizProgress').style.width = (i / QUIZ_QUESTIONS.length * 100) + '%';
+}
+
+function finishQuiz() {
+  const q = QUIZ_QUESTIONS[QUIZ_QUESTIONS.length - 1];
+  const slider = document.getElementById('slider-' + q.id);
+  quizAnswers[q.id] = parseInt(slider.value);
+
+  // Fill any missing answers with 3
+  QUIZ_QUESTIONS.forEach(q => { if (!quizAnswers[q.id]) quizAnswers[q.id] = 3; });
+
+  // Calculate scores
+  const keys = QUIZ_QUESTIONS.map(q => q.id);
+  const scores = PARTIES.map(party => {
+    const pos = PARTY_POSITIONS[party.id];
+    if (!pos) return { party, score: 0 };
+    let dist = 0;
+    keys.forEach(k => {
+      const userVal = quizAnswers[k] || 3;
+      const partyVal = pos[k] || 3;
+      dist += Math.pow(userVal - partyVal, 2);
+    });
+    const maxDist = keys.length * 16; // max possible squared distance per dim = 16
+    const score = Math.round((1 - dist / maxDist) * 100);
+    return { party, score };
+  }).sort((a, b) => b.score - a.score);
+
+  // Show last step
+  document.getElementById('qstep-' + (QUIZ_QUESTIONS.length-1)).classList.remove('active');
+  document.getElementById('quizProgress').style.width = '100%';
+
+  // Render results
+  const list = document.getElementById('resultList');
+  list.innerHTML = '';
+  scores.slice(0, 10).forEach((item, idx) => {
+    const rankClass = idx === 0 ? 'rank1' : idx === 1 ? 'rank2' : idx === 2 ? 'rank3' : '';
+    const div = document.createElement('div');
+    div.className = 'result-item ' + rankClass;
+    const medals = ['🥇','🥈','🥉'];
+    div.innerHTML = `
+      <div class="result-rank">${medals[idx] || (idx+1)}</div>
+      <div class="result-info">
+        <div class="result-name">${item.party.name}</div>
+        <div class="result-candidate">${item.party.candidate}</div>
+      </div>
+      <div class="result-bar-wrap">
+        <div class="result-pct" style="color:${item.party.color}">${item.score}%</div>
+        <div class="result-bar"><div class="result-bar-fill" style="width:${item.score}%;background:${item.party.color}"></div></div>
+      </div>`;
+    list.appendChild(div);
+  });
+
+  document.getElementById('quizResult').classList.add('show');
+  document.getElementById('quizResult').scrollIntoView({ behavior: 'smooth' });
+}
+
+function restartQuiz() {
+  initQuiz();
+  window.scrollTo(0, 0);
+}
+
+async function explainResults() {
+  const el = document.getElementById('quizExplain');
+  el.style.display = 'block';
+  el.innerHTML = '<div class="spinner"></div> Analizando tu perfil...';
+
+  const topParty = document.querySelector('.result-item.rank1 .result-name')?.textContent;
+  const answers = QUIZ_QUESTIONS.map(q => `${q.q}: ${quizAnswers[q.id] || 3}/5`).join('\n');
+
+  try {
+    const res = await fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: `Mis respuestas al quiz fueron:\n${answers}\n\nMi partido más afín resultó ser ${topParty}. ¿Por qué este partido se alinea con mis valores y qué debo saber antes de votar por ellos?`,
+        mode: 'doc', partyId: ''
+      })
+    });
+    const data = await res.json();
+    el.textContent = data.response;
+  } catch (e) {
+    el.textContent = 'Error al obtener explicación. ' + e.message;
+  }
+}
+
+// ===========================
+// CANDIDATOS
+// ===========================
+function initCandidates() {
+  const grid = document.getElementById('candGrid');
+  grid.innerHTML = '';
+  PARTIES.forEach(party => {
+    const card = document.createElement('div');
+    card.className = 'cand-card';
+    card.dataset.spectrum = party.spectrum;
+    card.dataset.status = party.status;
+    const initials = party.candidate.split(' ').slice(0,2).map(n=>n[0]||'').join('');
+    const statusTagHtml = () => {
+      const map = {limpio:'status-clean',investigado:'status-investigated',fugitivo:'status-fugitive',condenado:'status-convicted'};
+      return `<span class="status-tag ${map[party.status]||'status-investigated'}">${party.statusLabel}</span>`;
+    };
+    card.innerHTML = `
+      <div class="cand-top">
+        <div class="cand-avatar" style="background:${party.color}">${initials}</div>
+        <div class="cand-info">
+          <h3>${party.candidate}</h3>
+          <div class="cand-party">${party.name}</div>
+          <div class="cand-ideology">${party.ideology}</div>
+        </div>
+      </div>
+      <div class="cand-status">${statusTagHtml()}</div>
+      <hr class="cand-divider">
+      <div class="cand-proposal"><strong>Propuestas clave:</strong><br>${party.keyProposals.slice(0,2).join(' · ')}</div>
+      <div class="cand-actions">
+        <button class="cand-btn" onclick="openCandModal('${party.id}')">📋 Ver perfil</button>
+        <button class="cand-btn" onclick="investigateCandidate('${party.id}')">🔍 Investigar</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function filterCandidates(filter, btn) {
+  document.querySelectorAll('.cand-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.cand-card').forEach(card => {
+    if (filter === 'todos') { card.style.display = ''; return; }
+    if (filter === 'investigado') {
+      card.style.display = (card.dataset.status !== 'limpio') ? '' : 'none';
+    } else {
+      card.style.display = (card.dataset.spectrum === filter) ? '' : 'none';
+    }
+  });
+}
+
+function openCandModal(partyId) {
+  const party = PARTIES.find(p => p.id === partyId);
+  if (!party) return;
+  const modal = document.getElementById('candModal');
+  const name = document.getElementById('modalName');
+  const body = document.getElementById('modalBody');
+
+  name.textContent = `${party.candidate} · ${party.name}`;
+  body.innerHTML = `
+    <div class="modal-section">
+      <h4>📌 Perfil</h4>
+      <p>${party.bio}</p>
+    </div>
+    <div class="modal-section">
+      <h4>🏷️ Ideología</h4>
+      <p>${party.ideology}</p>
+    </div>
+    <div class="modal-section">
+      <h4>⚡ Propuestas clave</h4>
+      <ul>${party.keyProposals.map(p=>`<li>${p}</li>`).join('')}</ul>
+    </div>
+    <div class="modal-section">
+      <h4>⚖️ Estado judicial</h4>
+      <p><span class="status-tag ${party.status==='limpio'?'status-clean':party.status==='fugitivo'?'status-fugitive':'status-investigated'}" style="display:inline">${party.statusLabel}</span></p>
+      <p style="margin-top:10px">${party.investigations}</p>
+      <button class="investigate-btn" onclick="investigateFromModal('${party.id}', '${party.candidate}')">
+        🌐 Buscar noticias e investigaciones en internet
+      </button>
+      <div id="modal-invest-${party.id}" class="investigate-result" style="display:none"></div>
+    </div>
+    <div class="modal-section">
+      <h4>📄 Consultar Plan de Gobierno</h4>
+      <button class="investigate-btn" onclick="askQuick('¿Cuáles son las propuestas principales de ${party.name}?')">
+        💬 Preguntar sobre el plan de gobierno
+      </button>
+    </div>`;
+
+  modal.classList.add('show');
+}
+
+function closeCandModal(e) {
+  if (e.target.id === 'candModal') document.getElementById('candModal').classList.remove('show');
+}
+function closeCandModalDirect() {
+  document.getElementById('candModal').classList.remove('show');
+}
+
+async function investigateFromModal(partyId, candidateName) {
+  const el = document.getElementById(`modal-invest-${partyId}`);
+  el.style.display = 'block';
+  el.textContent = '🔍 Buscando información actualizada en internet...';
+
+  try {
+    const res = await fetch('/.netlify/functions/investigate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question: `¿Tiene denuncias, investigaciones judiciales o condenas ${candidateName}? Dame un resumen actualizado de su historial judicial y las noticias más recientes.`, mode: 'web' })
+    });
+    const data = await res.json();
+    el.textContent = data.response;
+  } catch (e) {
+    el.textContent = 'Error al buscar: ' + e.message;
+  }
+}
+
+async function investigateCandidate(partyId) {
+  const party = PARTIES.find(p => p.id === partyId);
+  if (!party) return;
+  showSection('consultar');
+  setMode('web');
+  setTimeout(() => {
+    document.getElementById('chatInput').value = `¿Tiene denuncias, investigaciones o condenas ${party.candidate} de ${party.name}? Busca información actualizada.`;
+    sendMessage();
+  }, 100);
+}
+
+// ===========================
+// COMPARAR
+// ===========================
+function initCompare() {
+  const selects = ['compare1','compare2','compare3'];
+  selects.forEach(id => {
+    const sel = document.getElementById(id);
+    const currentVal = sel.value;
+    sel.innerHTML = id === 'compare3' ? '<option value="">— Partido 3 (opcional) —</option>' : `<option value="">— Partido ${selects.indexOf(id)+1} —</option>`;
+    PARTIES.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = `${p.name} (${p.candidate})`;
+      if (p.id === currentVal) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+function updateCompare() { /* onChange handler — nothing needed */ }
+
+async function runCompare() {
+  const p1 = document.getElementById('compare1').value;
+  const p2 = document.getElementById('compare2').value;
+  const p3 = document.getElementById('compare3').value;
+
+  if (!p1 || !p2) { showToast('⚠️ Selecciona al menos 2 partidos'); return; }
+
+  const selectedIds = [p1, p2, p3].filter(Boolean);
+  const names = selectedIds.map(id => PARTIES.find(p => p.id === id)?.name || id);
+
+  const resultEl = document.getElementById('compareResult');
+  const aiEl = document.getElementById('compareAiResult');
+  resultEl.classList.add('show');
+  aiEl.innerHTML = '<div class="loading"><span class="spinner"></span> Analizando los planes de gobierno...</div>';
+
+  try {
+    const res = await fetch('/.netlify/functions/compare', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ partyIds: selectedIds, partyNames: names })
+    });
+    const data = await res.json();
+    aiEl.textContent = data.response;
+  } catch (e) {
+    aiEl.textContent = 'Error al comparar: ' + e.message;
+  }
+}
+
+// ===========================
+// FACTIBILIDAD
+// ===========================
+function initFactibility() {
+  const sel = document.getElementById('factParty');
+  sel.innerHTML = '<option value="">— Seleccionar partido (opcional) —</option>';
+  PARTIES.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = p.name;
+    sel.appendChild(opt);
+  });
+}
+
+function quickFact(text) {
+  showSection('factibilidad');
+  document.getElementById('factInput').value = text;
+  setTimeout(runFactibility, 100);
+}
+
+async function runFactibility() {
+  const input = document.getElementById('factInput').value.trim();
+  const partyId = document.getElementById('factParty').value;
+  if (!input) { showToast('⚠️ Escribe una propuesta para analizar'); return; }
+
+  const resultEl = document.getElementById('factResult');
+  const circleEl = document.getElementById('factCircle');
+  const labelEl = document.getElementById('factLabel');
+  const analysisEl = document.getElementById('factAnalysis');
+
+  resultEl.classList.add('show');
+  circleEl.className = 'fact-circle';
+  circleEl.textContent = '⏳';
+  labelEl.textContent = 'Analizando...';
+  analysisEl.innerHTML = '<span class="spinner"></span>';
+
+  try {
+    const res = await fetch('/.netlify/functions/factibility', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question: input, partyId, mode: 'factibility' })
+    });
+    const data = await res.json();
+
+    // Try to extract score from response
+    const scoreMatch = data.response.match(/FACTIBILIDAD:\s*(\d+)/i) || data.response.match(/PUNTAJE:\s*(\d+)/i) || data.response.match(/(\d+)\/100/);
+    const score = scoreMatch ? parseInt(scoreMatch[1]) : 50;
+
+    circleEl.textContent = score + '%';
+    if (score >= 60) { circleEl.className = 'fact-circle high'; labelEl.textContent = '✅ Factible'; }
+    else if (score >= 35) { circleEl.className = 'fact-circle medium'; labelEl.textContent = '⚠️ Parcialmente factible'; }
+    else { circleEl.className = 'fact-circle low'; labelEl.textContent = '❌ Poco factible'; }
+
+    analysisEl.textContent = data.response;
+    resultEl.scrollIntoView({ behavior: 'smooth' });
+  } catch (e) {
+    circleEl.textContent = '?';
+    labelEl.textContent = 'Error';
+    analysisEl.textContent = 'Error al analizar: ' + e.message;
+  }
+}
+
+// ===========================
+// PARTY SIDEBAR INIT
+// ===========================
+function initPartySidebar() {
+  const list = document.getElementById('partySidebarList');
+  list.innerHTML = '';
+  PARTIES.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'party-filter';
+    div.dataset.party = p.id;
+    div.onclick = function() { selectPartyFilter(this); };
+    div.innerHTML = `<div class="party-dot" style="background:${p.color}"></div><span class="party-filter-name">${p.name}</span>`;
+    list.appendChild(div);
+  });
+}
+
+// ===========================
+// UTILS
+// ===========================
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+// ===========================
+// INIT
+// ===========================
+document.addEventListener('DOMContentLoaded', () => {
+  initPartySidebar();
+  initQuiz();
+  initCandidates();
+  initCompare();
+  initFactibility();
+});
+</script>
+</body>
+</html>
